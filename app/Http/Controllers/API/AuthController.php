@@ -46,4 +46,40 @@ class AuthController extends Controller
         $user = auth()->user();
         return response()->json(['user'=> $user],200);
     }
+
+    public function userInfoTwo()
+    {
+        //to check if the user is authenticated
+
+        if (!auth()->check())
+        {
+            return response()->json(['error'=>'Unauthorized'], 401);
+        }
+
+        //fetch the user information
+        $user = auth()->user();
+
+        //include additional user data when required
+
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email'=> $user->email,
+        ];
+
+            //Adding more fields as required
+
+            //the response structure is provided by
+
+            $response = [
+                'succes'=> true,
+                'user' => $userData,
+
+            ];
+
+            //This returns a JSON response
+
+            return response()->json($response, 200);
+
+    }
 }
